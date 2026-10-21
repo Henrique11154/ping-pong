@@ -29,12 +29,14 @@ class Ball(pg.sprite.Sprite):
         self.velocy_y = -2
         self.texto = pg.font.Font(None,12)
         self.bateu = 0
+        self.ponto = 0
     def update(self,rect,gol,surface,color):
         self.draw(surface)
         self.moviment(rect,gol,color)
     def moviment(self,rect,gol,color):
         if self.colision(rect,color):
             self.velocy_y = (self.velocy_y*-1) +1
+            self.ponto+=1
         if self.colision(gol,(0,0,0)):
             self.bateu = 1
             self.velocy_x = 0

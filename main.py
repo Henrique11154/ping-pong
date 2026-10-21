@@ -23,6 +23,15 @@ def reiniciar():
     player = Player(tuple(cores))
     gol = Gol(tela.get_width())   
 
+def pontos():
+    ponto = txt.render("Pontos: {}".format(ball.ponto),1,(255,255,255))
+    return ponto
+
+def get_rect_ponto():
+    ponto = pontos()
+    rect_ponto = ponto.get_rect()
+    rect_ponto.center = [50,10]
+    return rect_ponto
 
 while True:
     for i in pg.event.get():
@@ -30,6 +39,7 @@ while True:
             pg.quit()
             exit()
     pg.display.update()
+    pontos()
     if ball.bateu == 1:
         tela.fill('black')
         tela.blit(texto,rect_text)
@@ -42,6 +52,7 @@ while True:
             exit()
     else:
         tela.fill('black')
+        tela.blit(pontos(),get_rect_ponto())
         player.update(tela)
         gol.update(tela)
         ball.update(player.rect,gol.rect,tela,tuple(cores))
