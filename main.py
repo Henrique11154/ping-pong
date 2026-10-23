@@ -1,24 +1,24 @@
 from classe import *
-width = 540
-heigth = 400
+WIDTH = 540
+HEIGTH = 400
 cores = [255,255,255]
-pg.init()
-tela = pg.display.set_mode((width,heigth))
-time = pg.time.Clock()
+init()
+tela = display.set_mode((WIDTH,HEIGTH))
+time = time.Clock()
 ball = Ball(tuple(cores))
 player = Player(tuple(cores))
 gol = Gol(tela.get_width())
 j=0
 t=1
 _ = 2
-txt = pg.font.SysFont('consolas',18,True)
+txt = font.SysFont('consolas',18,True)
 texto = txt.render("Aperte q para sair ou r para repetir",1,tuple(cores))
 rect_text = texto.get_rect()
 rect_text.center = [200,10]
 
 def reiniciar():
     global ball, player, gol, cores
-    cores = [255,255,255]  
+    cores = [255,255,255]
     ball = Ball(tuple(cores))
     player = Player(tuple(cores))
     gol = Gol(tela.get_width())   
@@ -34,21 +34,21 @@ def get_rect_ponto():
     return rect_ponto
 
 while True:
-    for i in pg.event.get():
-        if i.type == pg.QUIT:
-            pg.quit()
+    for i in event.get():
+        if i.type == QUIT:
+            quit()
             exit()
-    pg.display.update()
+    display.update()
     pontos()
     if ball.bateu == 1:
         tela.fill('black')
         tela.blit(texto,rect_text)
-        tecla = pg.key.get_pressed()
-        if tecla[pg.K_r]:
+        tecla = key.get_pressed()
+        if tecla[K_r]:
             reiniciar()
-        elif tecla[pg.K_q]:
+        elif tecla[K_q]:
             print("END GAME")
-            pg.quit()
+            quit()
             exit()
     else:
         tela.fill('black')
