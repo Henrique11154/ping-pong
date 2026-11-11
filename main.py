@@ -39,7 +39,6 @@ while True:
             quit()
             exit()
     display.update()
-    pontos()
     if ball.bateu == 1:
         tela.fill('black')
         tela.blit(texto,rect_text)

@@ -29,21 +29,23 @@ class Ball(sprite.Sprite):
         self.velocy_y = -2
         self.bateu = 0
         self.ponto = 0
+        self.safe_dist = 6
     def update(self,rect,gol,surface,color):
         self.draw(surface)
-        self.moviment(rect,gol,color)
-    def moviment(self,rect,gol,color):
+        self.moviment(rect,gol,color,surface)
+    def moviment(self,rect,gol,color,surface):
         if self.colision(rect,color):
             self.velocy_y = (self.velocy_y*-1) +1
+            self.velocy_x *= -1
             self.ponto+=1
         if self.colision(gol,(0,0,0)):
             self.bateu = 1
             self.velocy_x = 0
             self.velocy_y = 0
-        if self.circle.right >= 540 or self.circle.left <= 0:
+        if self.circle.right >= surface.get_width() or self.circle.left <= 0:
             self.velocy_x*=-1
             self.set_color(color)
-        if self.circle.bottom >= 400:
+        if self.circle.bottom >= surface.get_height():
             self.velocy_y*=-1
             self.set_color(color)
         self.circle.x+=int(self.velocy_x)
@@ -52,8 +54,15 @@ class Ball(sprite.Sprite):
         draw.circle(surface, self.color, self.circle.center, (self.circle.width+self.circle.height) // 2)
     def colision(self,rect2:Rect,color):
         if self.circle.colliderect(rect2):
-            self.set_color(color)
-            return True
+            if self.circle.top - rect2.bottom <self.safe_dist:    
+                self.set_color(color)
+                return True
+            if self.circle.left - rect2.right <self.safe_dist:
+                self.set_color(color)
+                return True
+            if self.circle.right - rect2.left <self.safe_dist:
+                self.set_color(color)
+                return True
         return False
     def set_color(self,color:tuple):
         self.color = color
