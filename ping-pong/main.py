@@ -2,7 +2,6 @@ from classe import *
 WIDTH = 540
 HEIGTH = 400
 cores = [255,255,255]
-init()
 tela = display.set_mode((WIDTH,HEIGTH))
 time = time.Clock()
 ball = Ball(tuple(cores))
@@ -14,7 +13,7 @@ _ = 2
 txt = font.SysFont('consolas',18,True)
 texto = txt.render("Aperte q para sair ou r para repetir",1,tuple(cores))
 rect_text = texto.get_rect()
-rect_text.center = [200,10]
+rect_text.center = [WIDTH/2,HEIGTH/2]
 
 def reiniciar():
     global ball, player, gol, cores
